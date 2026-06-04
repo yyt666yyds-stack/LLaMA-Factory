@@ -1,0 +1,42 @@
+### model
+model_name_or_path: /mnt/workspace/models/Qwen/Qwen3-8B-Instruct
+template: qwen3_nothink
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+quantization_bit: 4
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lora_target: all
+
+### dataset
+dataset: customer_service, msagent
+dataset_dir: data
+cutoff_len: 2048
+overwrite_cache: true
+preprocessing_num_workers: 1
+
+### training
+output_dir: saves/qwen3-8b-customer-service
+logging_steps: 10
+save_steps: 500
+plot_loss: true
+
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 8
+learning_rate: 5e-5
+num_train_epochs: 3
+lr_scheduler_type: cosine
+warmup_ratio: 0.05
+
+bf16: true
+gradient_checkpointing: true
+dataloader_num_workers: 1
+
+### evaluation
+val_size: 0.05
+per_device_eval_batch_size: 2
+eval_steps: 200
