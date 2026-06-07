@@ -1,0 +1,31 @@
+# Training outputs
+saves/
+swanlog/
+*.log
+
+# Model files
+models/
+
+# Python
+__pycache__/
+*.pyc
+.eggs/
+*.egg-info/
+
+# Large raw data (keep only processed simple versions)
+data/cs_dialogues.jsonl
+data/msagent_sharegpt.jsonl
+data/dataset_info.json.bak
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+
+# ModelScope upload caches
+.ms_upload_cache
+model-upload/
+model-upload-v2/
+
+# Temporary archives
+*.tar.gz
