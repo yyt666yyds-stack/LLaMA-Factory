@@ -1,0 +1,45 @@
+### model
+model_name_or_path: /mnt/workspace/models/Qwen/Qwen3-8B-Instruct
+template: qwen3_nothink
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+quantization_bit: 4
+lora_rank: 64
+lora_alpha: 128
+lora_dropout: 0.05
+lora_target: all
+
+### dataset
+# V7: V6 2740 + 新240条边界判别数据 = 2980条, 从V6最佳初始化
+dataset: tool_calling_v7
+dataset_dir: data
+cutoff_len: 2048
+overwrite_cache: true
+preprocessing_num_workers: 1
+
+### training
+output_dir: saves/qwen3-8b-customer-service-v7
+logging_steps: 10
+save_steps: 200
+plot_loss: false
+
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 5e-6
+num_train_epochs: 0.5
+lr_scheduler_type: cosine
+warmup_ratio: 0.05
+
+adapter_name_or_path: saves/qwen3-8b-customer-service-v6/checkpoint-163
+bf16: true
+gradient_checkpointing: true
+dataloader_num_workers: 1
+
+### evaluation
+val_size: 0.05
+eval_strategy: steps
+per_device_eval_batch_size: 2
+eval_steps: 200
